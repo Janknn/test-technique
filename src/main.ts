@@ -19,11 +19,11 @@ async function main() {
     if (isNaN(quantity) || quantity < 0 || 10e3 < quantity) {
       quantity = 5e2;
     }
-    quantity = Math.min(quantity, 10e3);
+    quantity = Math.min(quantity, 10e7);
     res.json(exampleService.generate(quantity));
   });
 
-  visaController.post('/stats', bodyParser.json(), (req, res) => {
+  visaController.post('/stats', bodyParser.json({limit: '50mb'}), (req, res) => {
     let date = new Date(req.query.date as string);
     if (isNaN(date.getTime())) {
       date = new Date();
